@@ -38,12 +38,35 @@ a {
   border-bottom: 4px solid var(--rojo);
 }
 
+.encabezado-interior {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .marca {
   display: flex;
   align-items: center;
   gap: 12px;
   text-decoration: none;
   color: var(--azul);
+}
+
+.marca img {
+  height: 56px;
+  width: auto;
+  display: block;
+}
+
+.marca-texto {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
 }
 
 .marca-texto strong {
@@ -56,6 +79,13 @@ a {
   font-size: 0.8rem;
   opacity: 0.8;
   color: var(--azul);
+}
+
+.navegacion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .navegacion a,
@@ -76,7 +106,6 @@ a {
   background: var(--azul-claro);
   border-color: var(--azul-claro);
 }
-
 /* ---------- Contenedores ---------- */
 .contenedor {
   max-width: 1100px;
