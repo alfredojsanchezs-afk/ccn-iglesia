@@ -1,0 +1,496 @@
+:root {
+  --azul: #16223b;
+  --azul-claro: #22335a;
+  --rojo: #a11d28;
+  --rojo-oscuro: #82161f;
+  --blanco: #ffffff;
+  --gris-fondo: #f3f4f7;
+  --gris-borde: #d9dce3;
+  --gris-texto: #5a6070;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  background: var(--gris-fondo);
+  color: var(--azul);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--rojo);
+}
+
+/* ---------- Encabezado ---------- */
+.encabezado {
+  background: var(--azul);
+  color: var(--blanco);
+  border-bottom: 4px solid var(--rojo);
+}
+
+.encabezado-interior {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--blanco);
+}
+
+.marca img {
+  height: 56px;
+  width: auto;
+  display: block;
+}
+
+.marca-texto {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.marca-texto strong {
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.marca-texto span {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.navegacion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.navegacion a,
+.navegacion button {
+  color: var(--blanco);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.navegacion a:hover,
+.navegacion button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ---------- Contenedores ---------- */
+.contenedor {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+}
+
+.contenedor-angosto {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+}
+
+.contenedor-medio {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+}
+
+.tarjeta {
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(22, 34, 59, 0.06);
+  margin-bottom: 20px;
+}
+
+h1 {
+  margin: 0 0 6px;
+  font-size: 1.6rem;
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+}
+
+h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.subtitulo {
+  color: var(--gris-texto);
+  margin: 0 0 20px;
+}
+
+/* ---------- Formularios ---------- */
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+
+.campo label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: var(--blanco);
+  color: var(--azul);
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid var(--azul-claro);
+  outline-offset: 0;
+  border-color: var(--azul-claro);
+}
+
+.campo input[readonly] {
+  background: var(--gris-fondo);
+  color: var(--gris-texto);
+}
+
+.ayuda {
+  font-size: 0.8rem;
+  color: var(--gris-texto);
+  margin-top: 4px;
+}
+
+.rejilla {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 16px;
+}
+
+@media (max-width: 640px) {
+  .rejilla {
+    grid-template-columns: 1fr;
+  }
+  .marca img {
+    height: 44px;
+  }
+}
+
+.separador {
+  border: none;
+  border-top: 1px solid var(--gris-borde);
+  margin: 20px 0;
+}
+
+.boton {
+  display: inline-block;
+  background: var(--rojo);
+  color: var(--blanco);
+  border: none;
+  border-radius: 8px;
+  padding: 11px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  text-align: center;
+}
+
+.boton:hover {
+  background: var(--rojo-oscuro);
+}
+
+.boton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.boton-completo {
+  width: 100%;
+}
+
+.boton-azul {
+  background: var(--azul);
+}
+
+.boton-azul:hover {
+  background: var(--azul-claro);
+}
+
+.boton-chico {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+}
+
+.boton-borde {
+  background: transparent;
+  color: var(--azul);
+  border: 1px solid var(--azul);
+}
+
+.boton-borde:hover {
+  background: var(--gris-fondo);
+}
+
+/* ---------- Mensajes ---------- */
+.mensaje {
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+}
+
+.mensaje-error {
+  background: #fdecee;
+  border: 1px solid #f1b5bb;
+  color: #7a1119;
+}
+
+.mensaje-exito {
+  background: #e8f5ec;
+  border: 1px solid #a9d6b5;
+  color: #1c5a2e;
+}
+
+.mensaje-info {
+  background: #eaf0fb;
+  border: 1px solid #b8c9ea;
+  color: var(--azul);
+}
+
+.pie-formulario {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 0.92rem;
+}
+
+/* ---------- Insignias ---------- */
+.insignia {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--blanco);
+  background: var(--azul);
+  white-space: nowrap;
+}
+
+.insignia-pastor {
+  background: var(--rojo);
+}
+.insignia-pastor_base {
+  background: var(--azul);
+}
+.insignia-lider {
+  background: #3d5a99;
+}
+.insignia-discipulo {
+  background: #6b7385;
+}
+.insignia-pendiente {
+  background: #b7791f;
+}
+.insignia-rechazado {
+  background: #7a1119;
+}
+.insignia-aprobado {
+  background: #2f7d4a;
+}
+
+/* ---------- Panel ---------- */
+.pestanas {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.pestana {
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  padding: 9px 16px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--azul);
+}
+
+.pestana-activa {
+  background: var(--azul);
+  color: var(--blanco);
+  border-color: var(--azul);
+}
+
+.pastilla-contador {
+  background: var(--rojo);
+  color: var(--blanco);
+  border-radius: 999px;
+  padding: 0 7px;
+  font-size: 0.75rem;
+  margin-left: 6px;
+}
+
+.cadena {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.cadena-paso {
+  background: var(--gris-fondo);
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+.cadena-paso small {
+  display: block;
+  color: var(--gris-texto);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cadena-flecha {
+  color: var(--gris-texto);
+}
+
+.arbol,
+.arbol ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 22px;
+  border-left: 2px solid var(--gris-borde);
+}
+
+.arbol {
+  padding-left: 0;
+  border-left: none;
+}
+
+.arbol li {
+  margin: 8px 0;
+}
+
+.persona {
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.persona summary {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.persona-detalle {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--gris-borde);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 16px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .persona-detalle {
+    grid-template-columns: 1fr;
+  }
+}
+
+.persona-detalle dt {
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--gris-texto);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.persona-detalle dd {
+  margin: 0 0 4px;
+}
+
+.fila-solicitud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--gris-borde);
+}
+
+.fila-solicitud:last-child {
+  border-bottom: none;
+}
+
+.acciones {
+  display: flex;
+  gap: 8px;
+}
+
+.vacio {
+  color: var(--gris-texto);
+  font-style: italic;
+}
+
+.cargando {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--gris-texto);
+}
+
+.desglose {
+  background: #eaf0fb;
+  border: 1px solid #b8c9ea;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}

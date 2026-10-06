@@ -1,0 +1,7 @@
+Coloca aquí el logo de CCN con el nombre exacto:
+
+    logo.png
+
+(Debe llamarse "logo.png", en minúsculas. Se muestra arriba a la izquierda.)
+Si prefieres otro formato, cambia la ruta en components/Header.js.
+Tamaño recomendado: fondo transparente, unos 400 px de ancho.
