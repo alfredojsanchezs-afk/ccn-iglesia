@@ -273,6 +273,15 @@ as $$
   select id, nombres, apellidos, nivel from cadena order by paso;
 $$;
 
+-- ---------- Permisos de acceso a la tabla ----------
+-- Supabase ya no da acceso automático a las tablas nuevas; hay que concederlo.
+-- (La seguridad real sigue siendo RLS: cada quien solo ve lo que le corresponde.)
+grant usage on schema public to anon, authenticated;
+grant select, update on public.perfiles to authenticated;
+
+grant execute on function public.es_pastor_aprobado() to authenticated;
+grant execute on function public.es_descendiente(uuid, uuid) to authenticated;
+grant execute on function public.puede_ver(uuid) to authenticated;
 grant execute on function public.listar_superiores(text) to anon, authenticated;
 grant execute on function public.usuario_disponible(text) to anon, authenticated;
 grant execute on function public.correo_por_usuario(text) to anon, authenticated;
