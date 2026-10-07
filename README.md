@@ -31,6 +31,16 @@ Colores: azul `#16223B`, rojo `#A11D28` y blanco.
   - **Discípulo:** ve su propia cobertura (líder → pastor base → pastor).
   - Esto lo hace respetar la propia base de datos (no solo la pantalla).
 - Cada persona puede **editar sus datos** en *Mi perfil* (no puede cambiar su nivel, estado ni superior).
+- **Etapas (fases del discípulo):** cada discípulo cursa 4 fases y registra en cuál va, con fecha de inicio y de fin:
+  1. **Ruta al Éxito**
+  2. **ESFORDI** (Escuela de Formación Discipular)
+  3. **ADN CCN**
+  4. **ESFORMI** (Escuela de Formación Ministerial)
+
+  El panel tiene tres pestañas: **Red de la iglesia**, **Etapas** y **Solicitudes** (esta última solo para Pastores).
+  - El **discípulo** ve *Mis etapas* y registra las suyas.
+  - El **líder, pastor base y pastor** ven *Etapas*: resumen por fase, **búsqueda por fase**, por estado
+    (en curso / completada / sin iniciar) y por nombre, y pueden registrar o corregir las etapas de los discípulos que ven.
 
 ---
 
@@ -43,6 +53,7 @@ ccn-iglesia/
 ├── lib/                  Conexión a Supabase y utilidades (edad, textos)
 ├── public/logo/          <-- AQUÍ va tu logo (logo.png)
 ├── supabase/schema.sql   Script de la base de datos (se pega en Supabase)
+├── supabase/etapas.sql   Script del módulo de Etapas (se pega en Supabase, después de schema.sql)
 ├── package.json
 └── README.md
 ```
@@ -58,10 +69,11 @@ ccn-iglesia/
 2. Cuando el proyecto esté listo, abre **SQL Editor** (menú izquierdo) → **New query**.
 3. Abre el archivo `supabase/schema.sql` de este repositorio, **copia todo su contenido**, pégalo en el editor y pulsa **Run**.
    Debe decir *Success*.
-4. Para que las personas puedan entrar apenas se registren (sin confirmar correo):
+4. Haz lo mismo con el archivo `supabase/etapas.sql` (New query → pegar todo → **Run**). Es el módulo de Etapas.
+5. Para que las personas puedan entrar apenas se registren (sin confirmar correo):
    **Authentication → Sign In / Providers → Email** y desactiva **Confirm email**. Guarda.
    *(Si prefieres dejar la confirmación por correo activada, también funciona: les pedirá confirmar antes de entrar.)*
-5. Copia tus dos datos de conexión, los necesitarás en el Paso 3:
+6. Copia tus dos datos de conexión, los necesitarás en el Paso 3:
    **Project Settings → API** (o *Data API*):
    - **Project URL** (algo como `https://abcdxyz.supabase.co`)
    - **anon public key** (clave larga que empieza con `eyJ...`)

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getSupabase } from '@/lib/supabase';
 import PersonaArbol from '@/components/PersonaArbol';
+import Etapas from '@/components/Etapas';
 import { NIVELES, calcularEdad, nombreCompleto, traducirError } from '@/lib/utils';
 
 export default function Panel() {
@@ -128,6 +129,19 @@ export default function Panel() {
     discipulo: 'Mi cobertura',
   }[yo.nivel];
 
+  // Pestañas del panel según el nivel.
+  const pestanasDisponibles = esPastor
+    ? ['red', 'etapas', 'solicitudes']
+    : yo.nivel === 'discipulo'
+    ? ['etapas']
+    : ['red', 'etapas'];
+  const pestanaActiva = pestanasDisponibles.includes(pestana) ? pestana : pestanasDisponibles[0];
+  const etiquetasPestana = {
+    red: esPastor ? 'Red de la iglesia' : etiquetaRed,
+    etapas: yo.nivel === 'discipulo' ? 'Mis etapas' : 'Etapas',
+    solicitudes: 'Solicitudes',
+  };
+
   return (
     <div className="contenedor">
       <div className="tarjeta">
@@ -168,27 +182,25 @@ export default function Panel() {
         </div>
       )}
 
-      {esPastor && (
-        <div className="pestanas">
+      <div className="pestanas">
+        {pestanasDisponibles.map((clave) => (
           <button
+            key={clave}
             type="button"
-            className={`pestana ${pestana === 'red' ? 'pestana-activa' : ''}`}
-            onClick={() => setPestana('red')}
+            className={`pestana ${pestanaActiva === clave ? 'pestana-activa' : ''}`}
+            onClick={() => setPestana(clave)}
           >
-            Red de la iglesia
+            {etiquetasPestana[clave]}
+            {clave === 'solicitudes' && pendientes.length > 0 && (
+              <span className="pastilla-contador">{pendientes.length}</span>
+            )}
           </button>
-          <button
-            type="button"
-            className={`pestana ${pestana === 'solicitudes' ? 'pestana-activa' : ''}`}
-            onClick={() => setPestana('solicitudes')}
-          >
-            Solicitudes
-            {pendientes.length > 0 && <span className="pastilla-contador">{pendientes.length}</span>}
-          </button>
-        </div>
-      )}
+        ))}
+      </div>
 
-      {(!esPastor || pestana === 'red') && yo.nivel !== 'discipulo' && (
+      {pestanaActiva === 'etapas' && <Etapas yo={yo} perfiles={aprobados} />}
+
+      {pestanaActiva === 'red' && (
         <div className="tarjeta">
           <h2>{etiquetaRed}</h2>
           {miRed.length === 0 && !esPastor ? (
@@ -203,7 +215,7 @@ export default function Panel() {
         </div>
       )}
 
-      {esPastor && pestana === 'solicitudes' && (
+      {pestanaActiva === 'solicitudes' && (
         <div className="tarjeta">
           <h2>Solicitudes de registro</h2>
           {solicitudes.length === 0 ? (
