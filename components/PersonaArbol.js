@@ -140,8 +140,11 @@ export function NodoPersona({ persona, hijosPorSuperior, atrasos, cerrados, alte
 
 // Arma el árbol a partir de una lista plana de perfiles aprobados.
 export default function PersonaArbol({ perfiles, atrasos = {} }) {
-  // Personas cuyos niveles inferiores están contraídos (por defecto todo está expandido).
-  const [cerrados, setCerrados] = useState(() => new Set());
+    // Personas cuyos niveles inferiores están contraídos (por defecto todo está contraído).
+  // Para que arranque todo expandido, usa: useState(() => new Set())
+  const [cerrados, setCerrados] = useState(
+    () => new Set(perfiles.map((p) => p.superior_id).filter(Boolean))
+  );
 
   function alternar(id) {
     setCerrados((actual) => {
