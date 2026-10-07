@@ -234,3 +234,44 @@
   gap: 6px;
   flex-wrap: wrap;
 }
+
+/* ---------- Contraer / expandir la Red de la iglesia ---------- */
+.arbol-herramientas {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.nodo-fila {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.nodo-fila .persona {
+  flex: 1;
+  min-width: 0;
+}
+
+.btn-contraer,
+.btn-contraer-vacio {
+  flex: none;
+  width: 30px;
+}
+
+.btn-contraer {
+  height: 34px;
+  border: 1px solid var(--gris-borde);
+  background: var(--blanco);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--azul);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.btn-contraer:hover {
+  background: var(--gris-fondo);
+  border-color: var(--azul-claro);
+}
