@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { getSupabase } from '@/lib/supabase';
 import PersonaArbol from '@/components/PersonaArbol';
 import Etapas from '@/components/Etapas';
-import { NIVELES, calcularEdad, nombreCompleto, traducirError } from '@/lib/utils';
+import { NIVELES, calcularAtrasos, calcularEdad, nombreCompleto, traducirError } from '@/lib/utils';
 
 export default function Panel() {
   const router = useRouter();
@@ -15,8 +15,20 @@ export default function Panel() {
   const [yo, setYo] = useState(null);
   const [perfiles, setPerfiles] = useState([]);
   const [cadena, setCadena] = useState([]);
+  const [filas, setFilas] = useState([]);
   const [pestana, setPestana] = useState('red');
   const [trabajando, setTrabajando] = useState('');
+
+  // Etapas de las personas que puedo ver (se usan en Etapas y para marcar atrasados en la Red).
+  const cargarEtapas = useCallback(async () => {
+    try {
+      const { data, error: err } = await getSupabase().from('etapas_progreso').select('*');
+      if (err) throw err;
+      setFilas(data || []);
+    } catch (err) {
+      setError(traducirError(err));
+    }
+  }, []);
 
   const cargar = useCallback(async () => {
     try {
@@ -45,6 +57,7 @@ export default function Panel() {
         const { data: lista, error: errLista } = await supabase.from('perfiles').select('*');
         if (errLista) throw errLista;
         setPerfiles(lista || []);
+        await cargarEtapas();
 
         if (miPerfil.nivel !== 'pastor') {
           const { data: sup } = await supabase.rpc('mi_cadena');
@@ -56,7 +69,7 @@ export default function Panel() {
       setError(traducirError(err));
       setCargando(false);
     }
-  }, [router]);
+  }, [router, cargarEtapas]);
 
   useEffect(() => {
     cargar();
@@ -198,7 +211,9 @@ export default function Panel() {
         ))}
       </div>
 
-      {pestanaActiva === 'etapas' && <Etapas yo={yo} perfiles={aprobados} />}
+      {pestanaActiva === 'etapas' && (
+        <Etapas yo={yo} perfiles={aprobados} filas={filas} onCambio={cargarEtapas} />
+      )}
 
       {pestanaActiva === 'red' && (
         <div className="tarjeta">
@@ -210,7 +225,7 @@ export default function Panel() {
                 : 'Aún no tienes discípulos registrados contigo.'}
             </p>
           ) : (
-            <PersonaArbol perfiles={aprobados} />
+            <PersonaArbol perfiles={aprobados} atrasos={calcularAtrasos(filas)} />
           )}
         </div>
       )}

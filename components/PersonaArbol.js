@@ -1,6 +1,7 @@
 'use client';
 
-import { NIVELES, calcularEdad, formatearFecha, nombreCompleto } from '@/lib/utils';
+import { FASES, NIVELES, calcularEdad, formatearFecha, nombreCompleto } from '@/lib/utils';
+import './etapas.css';
 
 function Detalle({ p }) {
   const edad = calcularEdad(p.fecha_nacimiento);
@@ -45,14 +46,27 @@ function Detalle({ p }) {
 }
 
 // Una persona y, debajo, todas las personas que dependen de ella.
-export function NodoPersona({ persona, hijosPorSuperior }) {
+export function NodoPersona({ persona, hijosPorSuperior, atrasos }) {
   const hijos = hijosPorSuperior[persona.id] || [];
+  const susAtrasos = atrasos[persona.id] || [];
   return (
     <li>
-      <details className="persona">
+      <details className={`persona ${susAtrasos.length > 0 ? 'persona-atrasada' : ''}`}>
         <summary>
           <strong>{nombreCompleto(persona)}</strong>
           <span className={`insignia insignia-${persona.nivel}`}>{NIVELES[persona.nivel]}</span>
+          {susAtrasos.map((a) => {
+            const fase = FASES.find((f) => f.numero === a.fase);
+            return (
+              <span
+                key={a.fase}
+                className="chip-fase chip-atrasada"
+                title={`Se pasó ${a.dias} día${a.dias === 1 ? '' : 's'} del tiempo máximo de ${fase.nombre}`}
+              >
+                Atrasado: {fase.corto} (+{a.dias} d)
+              </span>
+            );
+          })}
           {hijos.length > 0 && (
             <small style={{ color: 'var(--gris-texto)' }}>
               {hijos.length} directo{hijos.length === 1 ? '' : 's'}
@@ -64,7 +78,7 @@ export function NodoPersona({ persona, hijosPorSuperior }) {
       {hijos.length > 0 && (
         <ul>
           {hijos.map((h) => (
-            <NodoPersona key={h.id} persona={h} hijosPorSuperior={hijosPorSuperior} />
+            <NodoPersona key={h.id} persona={h} hijosPorSuperior={hijosPorSuperior} atrasos={atrasos} />
           ))}
         </ul>
       )}
@@ -73,7 +87,7 @@ export function NodoPersona({ persona, hijosPorSuperior }) {
 }
 
 // Arma el árbol a partir de una lista plana de perfiles aprobados.
-export default function PersonaArbol({ perfiles }) {
+export default function PersonaArbol({ perfiles, atrasos = {} }) {
   const ids = new Set(perfiles.map((p) => p.id));
   const hijosPorSuperior = {};
   const raices = [];
@@ -97,7 +111,7 @@ export default function PersonaArbol({ perfiles }) {
   return (
     <ul className="arbol">
       {raices.map((r) => (
-        <NodoPersona key={r.id} persona={r} hijosPorSuperior={hijosPorSuperior} />
+        <NodoPersona key={r.id} persona={r} hijosPorSuperior={hijosPorSuperior} atrasos={atrasos} />
       ))}
     </ul>
   );

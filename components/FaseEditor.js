@@ -2,7 +2,18 @@
 
 import { useState } from 'react';
 import { getSupabase } from '@/lib/supabase';
-import { ESTADOS_FASE, FASES, estadoFase, hoyISO, traducirError } from '@/lib/utils';
+import {
+  ESTADOS_FASE,
+  FASES,
+  diasDeRetraso,
+  estadoFase,
+  fechaLimite,
+  formatearFecha,
+  hoyISO,
+  textoDias,
+  traducirError,
+} from '@/lib/utils';
+import './etapas.css';
 
 // Una fase de una persona: fechas de inicio y fin, con botones rápidos.
 function FaseFila({ perfilId, fase, fila, onGuardado, onError }) {
@@ -63,6 +74,8 @@ function FaseFila({ perfilId, fase, fila, onGuardado, onError }) {
   }
 
   const hoy = hoyISO();
+  const diasAtraso = diasDeRetraso(fila);
+  const limite = fila && !fila.fecha_fin ? fechaLimite(fase.numero, fila.fecha_inicio) : null;
 
   return (
     <div className="fase-fila">
@@ -71,7 +84,14 @@ function FaseFila({ perfilId, fase, fila, onGuardado, onError }) {
           {fase.numero}. {fase.nombre}
         </strong>
         {fase.detalle && <small>{fase.detalle}</small>}
-        <span className={`chip-fase chip-${estado}`}>{ESTADOS_FASE[estado]}</span>
+        <span className={`chip-fase chip-${diasAtraso > 0 ? 'atrasada' : estado}`}>
+          {diasAtraso > 0 ? 'Atrasada' : ESTADOS_FASE[estado]}
+        </span>
+        <span className={`fase-aviso ${diasAtraso > 0 ? 'fase-aviso-atrasada' : ''}`}>
+          Tiempo máximo: {fase.duracionTexto}
+          {limite && diasAtraso === 0 && ` · Límite: ${formatearFecha(limite)}`}
+          {diasAtraso > 0 && ` · Se pasó ${textoDias(diasAtraso)} (límite era ${formatearFecha(limite)})`}
+        </span>
       </div>
 
       <div className="campo-mini">

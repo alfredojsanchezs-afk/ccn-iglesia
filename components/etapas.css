@@ -2,9 +2,55 @@
 
 .etapas-resumen {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 12px;
   margin-bottom: 18px;
+}
+
+/* ---------- Atrasados (en rojo) ---------- */
+.chip-atrasada {
+  background: #fdecee;
+  color: #7a1119;
+  border-color: #e0868e;
+}
+
+.persona.persona-atrasada {
+  border-color: #e0868e;
+  background: #fff5f6;
+}
+
+.persona.persona-atrasada summary strong {
+  color: #a11d28;
+}
+
+.tile-fase.tile-atrasados {
+  border-color: #e0868e;
+  background: #fff5f6;
+}
+
+.tile-fase.tile-atrasados .tile-numero {
+  background: var(--rojo);
+}
+
+.tile-fase.tile-atrasados strong {
+  color: #a11d28;
+}
+
+.tile-fase.tile-atrasados.tile-fase-activa {
+  border-color: var(--rojo);
+  box-shadow: 0 0 0 2px rgba(161, 29, 40, 0.3);
+}
+
+.fase-aviso {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--gris-texto);
+  margin-top: 4px;
+}
+
+.fase-aviso-atrasada {
+  color: #a11d28;
+  font-weight: 600;
 }
 
 @media (max-width: 760px) {

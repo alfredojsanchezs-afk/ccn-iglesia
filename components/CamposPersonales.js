@@ -50,7 +50,7 @@ export default function CamposPersonales({ datos, setDato }) {
             id="edad"
             readOnly
             value={edad === null ? '' : `${edad} años`}
-            placeholder="Aqui aparece tu edad"
+            placeholder="Se calcula sola"
           />
         </div>
       </div>

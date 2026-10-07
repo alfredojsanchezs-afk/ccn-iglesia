@@ -38,6 +38,11 @@ Colores: azul `#16223B`, rojo `#A11D28` y blanco.
   4. **ESFORMI** (Escuela de Formación Ministerial)
 
   El panel tiene tres pestañas: **Red de la iglesia**, **Etapas** y **Solicitudes** (esta última solo para Pastores).
+  - Cada fase tiene un **tiempo máximo** para culminar, contado desde su fecha de inicio:
+    Ruta al Éxito 7 semanas · ESFORDI 9 semanas · ADN CCN 1 día · ESFORMI 1 año.
+    Si una fase en curso lo supera, ese discípulo se marca en **rojo** como **Atrasado**, tanto en *Red de la iglesia*
+    como en *Etapas* (donde además hay un filtro y un recuadro **Atrasados**).
+    Los tiempos se cambian en `lib/utils.js` (lista `FASES`, campo `duracion`).
   - El **discípulo** ve *Mis etapas* y registra las suyas.
   - El **líder, pastor base y pastor** ven *Etapas*: resumen por fase, **búsqueda por fase**, por estado
     (en curso / completada / sin iniciar) y por nombre, y pueden registrar o corregir las etapas de los discípulos que ven.
